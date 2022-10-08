@@ -1,12 +1,25 @@
+using CheapCars.Data;
+
+using Microsoft.EntityFrameworkCore;
+
 namespace CheapCars;
 
 public class Program
 {
 	public static void Main(string[] args)
 	{
+		IConfiguration configuration = new ConfigurationBuilder()
+							.AddJsonFile("appsettings.json")
+							.Build();
+
 		var builder = WebApplication.CreateBuilder(args);
 
 		// Add services to the container.
+		builder.Services.AddDbContext<CarDbContext>(options => 
+		{
+			options.UseSqlServer(configuration.GetConnectionString("Default")); 
+		});
+
 		builder.Services.AddControllersWithViews();
 
 		var app = builder.Build();
@@ -30,6 +43,10 @@ public class Program
 			name: "default",
 			pattern: "{controller=Home}/{action=Index}/{id?}");
 
+		//Seed database
+		CarDbInitializer.SeedData(app);
+		 
 		app.Run();
+
 	}
 }
