@@ -15,7 +15,7 @@ public class CarsController : Controller
 	}
 	public async Task<IActionResult> Index()
 	{
-		var cars = await _context.Cars.ToListAsync();
+		var cars = await _context.Cars.Include(x => x.SellPlace).OrderBy(x => x.Name).ToListAsync();
 		return View(cars);
 	}
 }
