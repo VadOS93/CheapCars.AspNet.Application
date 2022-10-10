@@ -1,22 +1,21 @@
-﻿using CheapCars.Data;
+﻿using CheapCars.Data.Services;
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CheapCars.Controllers;
 
 public class AwardsController : Controller
 {
-	private readonly CarDbContext _context;
+	private readonly IAwardsService _awardService;
 
-	public AwardsController(CarDbContext context)
+	public AwardsController(IAwardsService awardService)
 	{
-		_context = context;
+		_awardService = awardService;
 	}
 
 	public async Task<IActionResult> Index()
 	{
-		var awards = await _context.Awards.ToListAsync();
+		var awards = await _awardService.GetAll();
 		return View(awards);
 	}
 }

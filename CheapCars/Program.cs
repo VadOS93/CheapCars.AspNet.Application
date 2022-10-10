@@ -1,4 +1,5 @@
 using CheapCars.Data;
+using CheapCars.Data.Extensions.DI;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@ public class Program
 			options.UseSqlServer(configuration.GetConnectionString("Default")); 
 		});
 
+
+		builder.Services.ActivateBasicServices();
 		builder.Services.AddControllersWithViews();
 
 		var app = builder.Build();
