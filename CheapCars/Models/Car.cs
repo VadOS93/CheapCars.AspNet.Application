@@ -17,8 +17,8 @@ public class Car
 	public DateTime StartSalesDate { get; set; }
 	public DateTime EndSalesDate { get; set; }
 	public CarType CarType { get; set; }
-	public List<Car_Award> Cars_Awards { get; set; }
-	public List<Car_SpecialAbility> Cars_SpecialAbilities { get; set; }
+	public List<Car_Award>? Cars_Awards { get; set; }
+	public List<Car_SpecialAbility>? Cars_SpecialAbilities { get; set; }
 	public int SellPlaceId { get; set; }
 	[ForeignKey("SellPlaceId")]
 	public SellPlace SellPlace { get; set; }

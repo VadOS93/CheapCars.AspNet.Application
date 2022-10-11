@@ -44,7 +44,7 @@ namespace CheapCars.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Awards");
+                    b.ToTable("Awards", (string)null);
                 });
 
             modelBuilder.Entity("CheapCars.Models.Car", b =>
@@ -86,7 +86,7 @@ namespace CheapCars.Migrations
 
                     b.HasIndex("SellPlaceId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("CheapCars.Models.Joins.Car_Award", b =>
@@ -101,7 +101,7 @@ namespace CheapCars.Migrations
 
                     b.HasIndex("AwardId");
 
-                    b.ToTable("Cars_Awards");
+                    b.ToTable("Cars_Awards", (string)null);
                 });
 
             modelBuilder.Entity("CheapCars.Models.Joins.Car_SpecialAbility", b =>
@@ -116,7 +116,7 @@ namespace CheapCars.Migrations
 
                     b.HasIndex("SpecialAbilityId");
 
-                    b.ToTable("Cars_SpecialAbilities");
+                    b.ToTable("Cars_SpecialAbilities", (string)null);
                 });
 
             modelBuilder.Entity("CheapCars.Models.SellPlace", b =>
@@ -141,7 +141,7 @@ namespace CheapCars.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SellPlaces");
+                    b.ToTable("SellPlaces", (string)null);
                 });
 
             modelBuilder.Entity("CheapCars.Models.SpecialAbility", b =>
@@ -166,7 +166,7 @@ namespace CheapCars.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SpecialAbilities");
+                    b.ToTable("SpecialAbilities", (string)null);
                 });
 
             modelBuilder.Entity("CheapCars.Models.Car", b =>

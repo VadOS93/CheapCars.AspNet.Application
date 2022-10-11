@@ -13,9 +13,10 @@ public class AwardsService : IAwardsService
 		_context = context;
 	}
 
-	public void Add(Award award)
+	public async Task Add(Award award)
 	{
-		throw new NotImplementedException();
+		await _context.Awards.AddAsync(award);
+		_context.SaveChanges();
 	}
 
 	public void Delete(int id)

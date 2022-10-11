@@ -15,5 +15,5 @@ public class SpecialAbility
 
 	[Display(Name = "Description")]
 	public string Description { get; set; }
-	public List<Car_SpecialAbility> Cars_SpecialAbilities { get; set; }
+	public List<Car_SpecialAbility>? Cars_SpecialAbilities { get; set; }
 }
