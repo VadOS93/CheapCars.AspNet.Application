@@ -16,17 +16,20 @@ public class AwardsService : IAwardsService
 	public async Task Add(Award award)
 	{
 		await _context.Awards.AddAsync(award);
-		_context.SaveChanges();
+		await _context.SaveChangesAsync();
 	}
 
-	public void Delete(int id)
+	public async Task Delete(int id)
 	{
-		throw new NotImplementedException();
+		var result = await _context.Awards.FirstOrDefaultAsync(x => x.Id == id);
+		_context.Awards.Remove(result);
+		await _context.SaveChangesAsync();
 	}
 
-	public Award Get(int id)
+	public async Task<Award> Get(int id)
 	{
-		throw new NotImplementedException();
+		var result = await _context.Awards.FirstOrDefaultAsync(x => x.Id == id);
+		return result;
 	}
 
 	public async Task<IEnumerable<Award>> GetAll()
@@ -35,8 +38,10 @@ public class AwardsService : IAwardsService
 		return result;
 	}
 
-	public Award Update(int id, Award newAward)
+	public async Task<Award> Update(int id, Award newAward)
 	{
-		throw new NotImplementedException();
+		_context.Update(newAward);
+		await _context.SaveChangesAsync();
+		return newAward;
 	}
 }
