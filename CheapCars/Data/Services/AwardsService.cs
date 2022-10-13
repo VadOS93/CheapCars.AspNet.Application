@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CheapCars.Data.Services;
 
-public class AwardsService : IAwardsService
+internal sealed class AwardsService : IAwardsService
 {
 	private readonly CarDbContext _context;
 

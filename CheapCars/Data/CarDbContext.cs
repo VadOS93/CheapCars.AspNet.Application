@@ -1,11 +1,12 @@
 ﻿using CheapCars.Models;
 using CheapCars.Models.Joins;
 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CheapCars.Data;
 
-public class CarDbContext : DbContext
+public class CarDbContext : IdentityDbContext<ApplicationUser>
 {
 	public DbSet<Award> Awards { get; set; }
 	public DbSet<Car> Cars { get; set; }
@@ -13,6 +14,10 @@ public class CarDbContext : DbContext
 	public DbSet<SellPlace> SellPlaces { get; set; }
 	public DbSet<Car_Award> Cars_Awards { get; set; }
 	public DbSet<Car_SpecialAbility> Cars_SpecialAbilities { get; set; }
+
+	public DbSet<Order> Orders { get; set; }
+	public DbSet<OrderItem> OrderItems { get; set; }
+	public DbSet<BusketItem> BusketItems { get; set; }
 
 	public CarDbContext(DbContextOptions<CarDbContext> options) : base(options)
 	{
