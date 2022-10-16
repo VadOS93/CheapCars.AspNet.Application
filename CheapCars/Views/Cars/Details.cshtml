@@ -1,0 +1,96 @@
+﻿@model Car
+
+@{
+    ViewData["Title"] = "Car details";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="card mb-12">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <h5 class="card-title">
+                                @Model.Name
+                            </h5>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="@Model.ImageURL" width="100%" alt="@Model.Name">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <p class="card-text">@Model.CarInfo</p>
+                        <p class="card-text">
+                            <b>Special Abilities: </b>
+                            <hr />
+                            <div class="row">
+                                @foreach (var specialAbility in Model.Cars_SpecialAbilities)
+                                {
+                                    <div class="column text-center">
+                                        <img class="border-info rounded-circle" src="@specialAbility.SpecialAbility.SpecialAbilityURLPicture" style="max-width: 150px" />
+                                        <br />
+                                        <a asp-controller="SpecialAbilities" asp-action="Details" asp-route-id="@specialAbility.SpecialAbilityId">@specialAbility.SpecialAbility.Name</a>
+                                    </div>
+                                }
+                            </div>
+                        </p>
+                        <p class="card-text">
+                            <b>Sell Place: </b>
+                            <a asp-controller="SellPlaces" asp-action="Details" asp-route-id="@Model.SellPlaceId">
+                                @Model.SellPlace.Name
+                            </a>
+                        </p>
+                        <p class="card-text"><b>Type: </b>@Model.CarType</p>
+                        <p class="card-text"><b>Start Sales Date: </b>@Model.StartSalesDate.ToString("dd MMM yy")</p>
+                        <p class="card-text"><b>End Sales Date: </b>@Model.EndSalesDate.ToString("dd MMM yy")</p>
+                        <p class="card-text ">
+                            <b>Status: </b>
+                            @if (DateTime.Now >= Model.StartSalesDate && DateTime.Now <= Model.EndSalesDate)
+                            {
+                                <span class="badge bg-success text-white">Available</span>
+                            }
+                            else if (DateTime.Now > Model.EndSalesDate)
+                            {
+                                <span class="badge bg-danger text-white">Expired</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary text-white">Upcoming</span>
+                            }
+                        </p>
+                        <p class="card-text">
+                            <b>Awards: </b>
+                            <hr />
+                            <div class="row">
+                                @foreach (var award in Model.Cars_Awards)
+                                {
+                                    <div class="column text-center">
+                                        <img class="border-info rounded-circle" src="@award.Award.Logo" style="max-width: 150px" />
+                                        <br />
+                                        <a asp-controller="Awards" asp-action="Details" asp-route-id="@award.AwardId">@award.Award.Name</a>
+                                    </div>
+                                }
+                            </div>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer">
+                        <p class="card-text">
+                            <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                Back
+                            </a>
+                            <a class="btn btn-success text-white  @((DateTime.Now > Model.EndSalesDate) ? "disabled" : "")"
+                               asp-controller="Orders"
+                               asp-action="AddItemToBusket" asp-route-id="@Model.Id"><i class="bi bi-cart-plus"></i> Add to Busket (Price @Model.Price.ToString("c"))</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+﻿@using CheapCars.Data.Enums
+@using CheapCars.Data.ViewModels
+@model NewCarVM
+
+@{
+    ViewData["Title"] = "Update car";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Update car</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StartSalesDate" class="control-label"></label>
+                                <input asp-for="StartSalesDate" type="date" class="form-control" />
+                                <span asp-validation-for="StartSalesDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EndSalesDate" class="control-label"></label>
+                                <input asp-for="EndSalesDate" type="date" class="form-control" />
+                                <span asp-validation-for="EndSalesDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label"></label>
+                                <input asp-for="Price" type="number" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ImageURL" class="control-label"></label>
+                                <input asp-for="ImageURL" class="form-control" />
+                                <span asp-validation-for="ImageURL" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="SpecialAbilityIds" class="control-label"></label>
+                                <select asp-for="SpecialAbilityIds" class="form-control" asp-items="ViewBag.SpecialAbilities" multiple></select>
+                                <span asp-validation-for="SpecialAbilityIds" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CarType" class="control-label"></label>
+                                <select asp-for="CarType" class="form-control" asp-items="Html.GetEnumSelectList<CarType>()"></select>
+                                <span asp-validation-for="CarType" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SellPlaceId" class="control-label"></label>
+                                <select asp-for="SellPlaceId" class="form-control" asp-items="ViewBag.SellPlaces"></select>
+                                <span asp-validation-for="SellPlaceId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="AwardIds" class="control-label"></label>
+                                <select asp-for="AwardIds" class="form-control" asp-items="ViewBag.Awards" multiple></select>
+                                <span asp-validation-for="AwardIds" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="CarInfo" class="control-label"></label>
+                                <textarea asp-for="CarInfo" class="form-control"></textarea>
+                                <span asp-validation-for="CarInfo" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="ImageUrlPreview" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show all</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById("ImageUrlPreview");
+            output.src = $("#ImageURL").val();
+        });
+        $("#ImageURL").on("change", function () {
+            var output = document.getElementById("ImageUrlPreview");
+            output.src = $(this).val();
+        })
+    </script>
+}

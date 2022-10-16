@@ -257,7 +257,7 @@ public class CarDbInitializer
 
 			//Users
 			var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-			string adminUserEmail = "admin@etickets.com";
+			string adminUserEmail = "admin@cheapcars.com";
 
 			var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
 			if (adminUser == null)
@@ -265,16 +265,16 @@ public class CarDbInitializer
 				var newAdminUser = new ApplicationUser()
 				{
 					FullName = "Admin User",
-					UserName = "admin-user",
+					UserName = "admin",
 					Email = adminUserEmail,
 					EmailConfirmed = true
 				};
-				await userManager.CreateAsync(newAdminUser, "Coding@1234?");
+				await userManager.CreateAsync(newAdminUser, "Coding12345!!!");
 				await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
 			}
 
 
-			string appUserEmail = "user@etickets.com";
+			string appUserEmail = "user@cheapcars.com";
 
 			var appUser = await userManager.FindByEmailAsync(appUserEmail);
 			if (appUser == null)
@@ -282,11 +282,11 @@ public class CarDbInitializer
 				var newAppUser = new ApplicationUser()
 				{
 					FullName = "Application User",
-					UserName = "app-user",
+					UserName = "user",
 					Email = appUserEmail,
 					EmailConfirmed = true
 				};
-				await userManager.CreateAsync(newAppUser, "Coding@1234?");
+				await userManager.CreateAsync(newAppUser, "Coding12345!!!");
 				await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
 			}
 		}
