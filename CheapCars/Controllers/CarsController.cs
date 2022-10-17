@@ -37,7 +37,7 @@ public class CarsController : Controller
 			CurrentPage = page
 		};
 
-		return View("Index", carsView);
+		return View("Available", carsView);
 
 	}
 
@@ -55,7 +55,7 @@ public class CarsController : Controller
 			CurrentPage = page
 		};
 
-		return View("Index", carsView);
+		return View("SortByAsc", carsView);
 
 	}
 
@@ -73,11 +73,11 @@ public class CarsController : Controller
 			CurrentPage = page
 		};
 
-		return View("Index", carsView);
+		return View("SortByDesc", carsView);
 	}
 
 	[AllowAnonymous]
-	public async Task<IActionResult> Filter(string searchString)
+	public async Task<IActionResult> Filter(string searchString, int page = 1)
 	{
 		var allCars = await _carService.GetAll();
 
@@ -85,12 +85,22 @@ public class CarsController : Controller
 		{
 			var filteredResult = allCars.Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || n.CarInfo.ToLower().Contains(searchString.ToLower())).ToList().OrderBy(x => x.Price);
 
-			//var filteredResultNew = allCars.Where(n => string.Equals(n.Name, searchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.CarInfo, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
-
-			return View("Index", filteredResult);
+			var carsView = new CarViewModel
+			{
+				CarPerPage = 3,
+				Cars = filteredResult,
+				CurrentPage = page
+			};
+			return View("Filter", carsView);
 		}
+		var carsView2 = new CarViewModel
+		{
+			CarPerPage = 3,
+			Cars = allCars,
+			CurrentPage = page
+		};
 
-		return View("Index", allCars);
+		return View("Filter", carsView2);
 	}
 
 	[AllowAnonymous]
