@@ -4,6 +4,24 @@
     ViewData["Title"] = "List of Cars";
 }
 
+<div class="btn-group sort-btn" >
+    <a class="btn btn-primary" asp-controller="Cars" asp-action="SortByDesc">
+        <i class="bi bi-sort-down"></i> Price
+    </a>
+</div>
+
+<div class="btn-group sort-btn">
+    <a class="btn btn-primary" asp-controller="Cars" asp-action="SortByAsc">
+        <i class="bi bi-sort-up"></i> Price
+    </a>
+</div>
+
+<div class="btn-group sort-btn">
+    <a class="btn btn-primary" asp-controller="Cars" asp-action="Available">
+        <i class="bi bi-card-checklist"></i> Show Available
+    </a>
+</div>
+
 <div class="row">
     @foreach (var item in Model)
     {
@@ -72,4 +90,4 @@
     }
 </div>
 
-@await Html.PartialAsync("_CreateItem", "Cars") 
+@await Html.PartialAsync("_CreateItem", "Cars")

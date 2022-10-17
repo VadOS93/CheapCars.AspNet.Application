@@ -9,4 +9,5 @@ public interface ICarsService
 	Task<NewCarDropdownsVM> GetNewCarDropdownsValues();
 	Task AddNewCar(NewCarVM data);
 	Task UpdateCar(NewCarVM data);
+	Task<IEnumerable<Car>> GetAll();
 }
