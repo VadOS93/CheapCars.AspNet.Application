@@ -5,6 +5,7 @@ using CheapCars.Data.ViewModels;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,35 +24,56 @@ public class CarsController : Controller
 	}
 
 	[AllowAnonymous]
-	public async Task<IActionResult> Available()
+	public async Task<IActionResult> Available(int page = 1)
 	{
 		var allCars = await _carService.GetAll();
 
 		var filteredResult = allCars.Where(x => x.StartSalesDate < DateTime.UtcNow && x.EndSalesDate > DateTime.UtcNow).ToList();
 
-		return View("Index", filteredResult);
+		var carsView = new CarViewModel
+		{
+			CarPerPage = 3,
+			Cars = filteredResult,
+			CurrentPage = page
+		};
+
+		return View("Index", carsView);
 
 	}
 
 	[AllowAnonymous]
-	public async Task<IActionResult> SortByAsc()
+	public async Task<IActionResult> SortByAsc(int page = 1)
 	{
 		var allCars = await _carService.GetAll();
 
 		var filteredResult = allCars.ToList().OrderBy(x => x.Price);
 
-		return View("Index", filteredResult);
+		var carsView = new CarViewModel
+		{
+			CarPerPage = 3,
+			Cars = filteredResult,
+			CurrentPage = page
+		};
+
+		return View("Index", carsView);
 
 	}
 
 	[AllowAnonymous]
-	public async Task<IActionResult> SortByDesc()
+	public async Task<IActionResult> SortByDesc(int page = 1)
 	{
 		var allCars = await _carService.GetAll();
 
 		var filteredResult = allCars.ToList().OrderByDescending(x => x.Price);
 
-		return View("Index", filteredResult);
+		var carsView = new CarViewModel
+		{
+			CarPerPage = 3,
+			Cars = filteredResult,
+			CurrentPage = page
+		};
+
+		return View("Index", carsView);
 	}
 
 	[AllowAnonymous]
@@ -72,10 +94,16 @@ public class CarsController : Controller
 	}
 
 	[AllowAnonymous]
-	public async Task<IActionResult> Index()
+	public async Task<IActionResult> Index(int page = 1)
 	{
-		var cars = await _context.Cars.Include(x => x.SellPlace).OrderBy(x => x.Name).ToListAsync();
-		return View(cars);
+		var carsView = new CarViewModel
+		{
+			CarPerPage = 3,
+			Cars = _context.Cars.Include(x => x.SellPlace).OrderBy(x => x.Name),
+			CurrentPage = page
+		};
+		return View(carsView);
+
 	}
 
 	[AllowAnonymous]

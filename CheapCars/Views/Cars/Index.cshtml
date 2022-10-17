@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Car>
+﻿@using CheapCars.Data.ViewModels
+@model CarViewModel
 
 @{
     ViewData["Title"] = "List of Cars";
@@ -23,7 +24,7 @@
 </div>
 
 <div class="row">
-    @foreach (var item in Model)
+    @foreach (var item in Model.PaginatedCars())
     {
         <div class="col-md-4 col-xs-6 border-primary mb-3">
             <div class="card mb-3" style="max-width: 540px;">
@@ -89,5 +90,14 @@
         </div>
     }
 </div>
+
+<ul class="pagination">
+    @for (int i = 1; i <= Model.PageCount(); i++)
+    {
+        <li class="@(i == Model.CurrentPage ? "page-item active" : "page-item")">
+            <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+        </li>
+    }
+</ul>
 
 @await Html.PartialAsync("_CreateItem", "Cars")
