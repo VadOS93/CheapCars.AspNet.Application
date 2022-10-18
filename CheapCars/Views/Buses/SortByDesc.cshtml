@@ -2,23 +2,23 @@
 @model CarViewModel
 
 @{
-    ViewData["Title"] = "List of Cars";
+    ViewData["Title"] = "List of Buses";
 }
 
 <div class="btn-group sort-btn">
-    <a class="btn btn-primary" asp-controller="Cars" asp-action="SortByDesc">
+    <a class="btn btn-primary" asp-controller="Buses" asp-action="SortByDesc">
         <i class="bi bi-sort-down"></i> Price
     </a>
 </div>
 
 <div class="btn-group sort-btn">
-    <a class="btn btn-primary" asp-controller="Cars" asp-action="SortByAsc">
+    <a class="btn btn-primary" asp-controller="Buses" asp-action="SortByAsc">
         <i class="bi bi-sort-up"></i> Price
     </a>
 </div>
 
 <div class="btn-group sort-btn">
-    <a class="btn btn-primary" asp-controller="Cars" asp-action="Available">
+    <a class="btn btn-primary" asp-controller="Buses" asp-action="Available">
         <i class="bi bi-card-checklist"></i> Show Available
     </a>
 </div>

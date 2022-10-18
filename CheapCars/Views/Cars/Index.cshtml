@@ -76,7 +76,7 @@
                                 <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"></i> Show Details
                                 </a>
-                                <a class="btn btn-success text-white @((DateTime.Now > item.EndSalesDate) ? "disabled" : "")"
+                                <a class="btn btn-success text-white @((DateTime.Now > item.EndSalesDate) || (DateTime.Now < item.StartSalesDate)? "disabled" : "")"
                                asp-controller="Orders"
                                asp-action="AddItemToBusket"
                                asp-route-id="@item.Id">

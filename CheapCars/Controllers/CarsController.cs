@@ -5,7 +5,6 @@ using CheapCars.Data.ViewModels;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +27,7 @@ public class CarsController : Controller
 	{
 		var allCars = await _carService.GetAll();
 
-		var filteredResult = allCars.Where(x => x.StartSalesDate < DateTime.UtcNow && x.EndSalesDate > DateTime.UtcNow).ToList();
+		var filteredResult = allCars.Where(x => x.StartSalesDate < DateTime.UtcNow && x.EndSalesDate > DateTime.UtcNow && x.CarType != Data.Enums.CarType.Bus).ToList();
 
 		var carsView = new CarViewModel
 		{
@@ -46,7 +45,7 @@ public class CarsController : Controller
 	{
 		var allCars = await _carService.GetAll();
 
-		var filteredResult = allCars.ToList().OrderBy(x => x.Price);
+		var filteredResult = allCars.Where(x => x.CarType != Data.Enums.CarType.Bus).ToList().OrderBy(x => x.Price);
 
 		var carsView = new CarViewModel
 		{
@@ -64,7 +63,7 @@ public class CarsController : Controller
 	{
 		var allCars = await _carService.GetAll();
 
-		var filteredResult = allCars.ToList().OrderByDescending(x => x.Price);
+		var filteredResult = allCars.Where(x => x.CarType != Data.Enums.CarType.Bus).ToList().OrderByDescending(x => x.Price);
 
 		var carsView = new CarViewModel
 		{
@@ -109,7 +108,7 @@ public class CarsController : Controller
 		var carsView = new CarViewModel
 		{
 			CarPerPage = 3,
-			Cars = _context.Cars.Include(x => x.SellPlace).OrderBy(x => x.Name),
+			Cars = _context.Cars.Where(x => x.CarType != Data.Enums.CarType.Bus).Include(x => x.SellPlace).OrderBy(x => x.Name),
 			CurrentPage = page
 		};
 		return View(carsView);

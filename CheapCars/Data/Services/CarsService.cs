@@ -32,25 +32,35 @@ internal sealed class CarsService : ICarsService
 		await _context.SaveChangesAsync();
 
 		//Add Car Awards
-		foreach (var awardId in data.AwardIds)
+
+		if (data.AwardIds != null)
 		{
-			var newCarAward = new Car_Award()
+			foreach (var awardId in data.AwardIds)
 			{
-				CarId = newCar.Id,
-				AwardId = awardId
-			};
-			await _context.Cars_Awards.AddAsync(newCarAward);
+				var newCarAward = new Car_Award()
+				{
+					CarId = newCar.Id,
+					AwardId = awardId
+				};
+				await _context.Cars_Awards.AddAsync(newCarAward);
+			}
+
 		}
 
 		//Add Car Special Abilities
-		foreach (var specialAbilityId in data.SpecialAbilityIds)
+
+		if (data.SpecialAbilityIds != null)
 		{
-			var newCarSpecialAbility = new Car_SpecialAbility()
+			foreach (var specialAbilityId in data.SpecialAbilityIds)
 			{
-				CarId = newCar.Id,
-				SpecialAbilityId = specialAbilityId
-			};
-			await _context.Cars_SpecialAbilities.AddAsync(newCarSpecialAbility);
+				var newCarSpecialAbility = new Car_SpecialAbility()
+				{
+					CarId = newCar.Id,
+					SpecialAbilityId = specialAbilityId
+				};
+				await _context.Cars_SpecialAbilities.AddAsync(newCarSpecialAbility);
+			}
+
 		}
 		await _context.SaveChangesAsync();
 	}
@@ -106,31 +116,41 @@ internal sealed class CarsService : ICarsService
 		_context.Cars_Awards.RemoveRange(existingAwardsDb);
 		await _context.SaveChangesAsync();
 
-		//Add Car Awards
-		foreach (var awardId in data.AwardIds)
-		{
-			var newCarAward = new Car_Award()
-			{
-				CarId = data.Id,
-				AwardId = awardId
-			};
-			await _context.Cars_Awards.AddAsync(newCarAward);
-		}
-
 		//Remove existing special abilities
 		var existingSpecialAbilitiesDb = _context.Cars_SpecialAbilities.Where(n => n.CarId == data.Id).ToList();
 		_context.Cars_SpecialAbilities.RemoveRange(existingSpecialAbilitiesDb);
 		await _context.SaveChangesAsync();
 
-		//Add Car Special Abilities
-		foreach (var specialAbilityId in data.SpecialAbilityIds)
+		//Add Car Awards
+
+		if (data.AwardIds != null)
 		{
-			var newCarSpecialAbility = new Car_SpecialAbility()
+			foreach (var awardId in data.AwardIds)
 			{
-				CarId = data.Id,
-				SpecialAbilityId = specialAbilityId
-			};
-			await _context.Cars_SpecialAbilities.AddAsync(newCarSpecialAbility);
+				var newCarAward = new Car_Award()
+				{
+					CarId = data.Id,
+					AwardId = awardId
+				};
+				await _context.Cars_Awards.AddAsync(newCarAward);
+			}
+
+		}
+
+		//Add Car Special Abilities
+
+		if (data.SpecialAbilityIds != null)
+		{
+			foreach (var specialAbilityId in data.SpecialAbilityIds)
+			{
+				var newCarSpecialAbility = new Car_SpecialAbility()
+				{
+					CarId = data.Id,
+					SpecialAbilityId = specialAbilityId
+				};
+				await _context.Cars_SpecialAbilities.AddAsync(newCarSpecialAbility);
+			}
+
 		}
 		await _context.SaveChangesAsync();
 	}

@@ -8,5 +8,6 @@ public enum CarType
 	Coupe,
 	Minivan,
 	Crossover,
-	Convertible
+	Convertible,
+	Bus
 }

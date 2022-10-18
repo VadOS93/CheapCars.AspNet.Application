@@ -3,8 +3,6 @@ using CheapCars.Models;
 
 using Microsoft.AspNetCore.Mvc;
 
-using StackExchange.Redis;
-
 namespace CheapCars.Controllers;
 
 public class AwardsController : Controller
@@ -89,7 +87,7 @@ public class AwardsController : Controller
 			return View("NotFound");
 
 		await _awardService.Delete(id);
-		
+
 		return RedirectToAction(nameof(Index));
 	}
 }

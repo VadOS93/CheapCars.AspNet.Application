@@ -1,7 +1,7 @@
-﻿@model Award
+﻿@model SellPlace
 
 @{
-    ViewData["Title"] = "Award Details";
+    ViewData["Title"] = "Sell Place Details";
 }
 
 <div class="row text">
@@ -16,9 +16,9 @@
                     <img id="LogoPreview" class="border-info rounded-circle" style="max-width: 150px" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Logo" class="control-label"></label>
-                    <input asp-for="Logo" class="form-control" readonly />
-                    <span asp-validation-for="Logo" class="text-danger"></span>
+                    <label asp-for="SellPlaceURLPicture" class="control-label"></label>
+                    <input asp-for="SellPlaceURLPicture" class="form-control" readonly />
+                    <span asp-validation-for="SellPlaceURLPicture" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
@@ -51,7 +51,7 @@
 
         $(document).ready(function () {
             var output = document.getElementById('LogoPreview');
-            output.src = $("#Logo").val();
+            output.src = $("#SellPlaceURLPicture").val();
         })
 
     </script>

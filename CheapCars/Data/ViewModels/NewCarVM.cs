@@ -38,14 +38,12 @@ public class NewCarVM
 
 	//Relationships
 	[Display(Name = "Select award(s)")]
-	[Required(ErrorMessage = "Car award(s) is required")]
-	public List<int> AwardIds { get; set; }
+	public List<int>? AwardIds { get; set; }
 
 	[Display(Name = "Select a sell place")]
 	[Required(ErrorMessage = "Car sell place is required")]
 	public int SellPlaceId { get; set; }
 
 	[Display(Name = "Select special ability(s)")]
-	[Required(ErrorMessage = "Car special ability(s) is required")]
-	public List<int> SpecialAbilityIds { get; set; }
+	public List<int>? SpecialAbilityIds { get; set; }
 }

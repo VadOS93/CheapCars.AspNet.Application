@@ -13,5 +13,5 @@ public class SellPlace
 
 	[Display(Name = "Description")]
 	public string Description { get; set; }
-	public List<Car> Cars { get; set; }
+	public List<Car>? Cars { get; set; }
 }
