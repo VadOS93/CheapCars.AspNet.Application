@@ -1,4 +1,4 @@
-﻿using CheapCars.Data.Services;
+﻿using CheapCars.Data.Interfaces;
 using CheapCars.Models;
 
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,5 @@
-﻿using CheapCars.Models;
+﻿using CheapCars.Data.Interfaces;
+using CheapCars.Models;
 
 using Microsoft.EntityFrameworkCore;
 

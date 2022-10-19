@@ -1,4 +1,5 @@
-﻿using CheapCars.Data.ViewModels;
+﻿using CheapCars.Data.Interfaces;
+using CheapCars.Data.ViewModels;
 using CheapCars.Models;
 using CheapCars.Models.Joins;
 

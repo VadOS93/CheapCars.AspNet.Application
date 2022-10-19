@@ -1,5 +1,5 @@
 ﻿using CheapCars.Data;
-using CheapCars.Data.Services;
+using CheapCars.Data.Interfaces;
 using CheapCars.Data.ViewModels;
 
 using Microsoft.AspNetCore.Authorization;

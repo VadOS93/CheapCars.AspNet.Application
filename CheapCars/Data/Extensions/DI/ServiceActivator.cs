@@ -1,4 +1,5 @@
-﻿using CheapCars.Data.Services;
+﻿using CheapCars.Data.Interfaces;
+using CheapCars.Data.Services;
 
 namespace CheapCars.Data.Extensions.DI;
 

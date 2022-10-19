@@ -1,5 +1,5 @@
 using CheapCars.Controllers;
-using CheapCars.Data.Services;
+using CheapCars.Data.Interfaces;
 using CheapCars.Data.ViewModels;
 using CheapCars.Models;
 
