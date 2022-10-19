@@ -1,24 +1,20 @@
-﻿using CheapCars.Data;
-using CheapCars.Data.Services;
+﻿using CheapCars.Data.Services;
 using CheapCars.Data.Static;
 using CheapCars.Data.ViewModels;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 
 namespace CheapCars.Controllers;
 
 [Authorize(Roles = UserRoles.Admin)]
 public class CarsController : Controller
 {
-	private readonly CarDbContext _context;
 	private readonly ICarsService _carService;
 
-	public CarsController(CarDbContext context, ICarsService carService)
+	public CarsController(ICarsService carService)
 	{
-		_context = context;
 		_carService = carService;
 	}
 
@@ -105,10 +101,11 @@ public class CarsController : Controller
 	[AllowAnonymous]
 	public async Task<IActionResult> Index(int page = 1)
 	{
+		var allCars = await _carService.GetAll();
 		var carsView = new CarViewModel
 		{
 			CarPerPage = 3,
-			Cars = _context.Cars.Where(x => x.CarType != Data.Enums.CarType.Bus).Include(x => x.SellPlace).OrderBy(x => x.Name),
+			Cars = allCars.Where(x => x.CarType != Data.Enums.CarType.Bus).OrderBy(x => x.Name),
 			CurrentPage = page
 		};
 		return View(carsView);
