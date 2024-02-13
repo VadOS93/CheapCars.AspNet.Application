@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CheapCars.Controllers;
 
+/// <summary>
+/// Operations with sell places
+/// </summary>
 public class SellPlacesController : Controller
 {
 	private readonly ISellPlacesService _sellPlacesService;
@@ -30,9 +33,8 @@ public class SellPlacesController : Controller
 	{
 		var errors = ModelState.Values.SelectMany(v => v.Errors);
 		if (!ModelState.IsValid)
-		{
 			return View(sellPlace);
-		}
+
 		await _sellPlacesService.Add(sellPlace);
 		return RedirectToAction(nameof(Index));
 	}
@@ -42,7 +44,7 @@ public class SellPlacesController : Controller
 	{
 		var sellPlaceDetails = await _sellPlacesService.Get(id);
 
-		if (sellPlaceDetails == null)
+		if (sellPlaceDetails is null)
 			return View("NotFound");
 
 		return View(sellPlaceDetails);
@@ -52,8 +54,9 @@ public class SellPlacesController : Controller
 	{
 		var sellPlaceDetails = await _sellPlacesService.Get(id);
 
-		if (sellPlaceDetails == null)
+		if (sellPlaceDetails is null)
 			return View("NotFound");
+
 		return View(sellPlaceDetails);
 	}
 
@@ -62,9 +65,8 @@ public class SellPlacesController : Controller
 	{
 		var errors = ModelState.Values.SelectMany(v => v.Errors);
 		if (!ModelState.IsValid)
-		{
 			return View(sellPlace);
-		}
+
 		await _sellPlacesService.Update(id, sellPlace);
 		return RedirectToAction(nameof(Index));
 	}
@@ -73,8 +75,9 @@ public class SellPlacesController : Controller
 	{
 		var sellPlaceDetails = await _sellPlacesService.Get(id);
 
-		if (sellPlaceDetails == null)
+		if (sellPlaceDetails is null)
 			return View("NotFound");
+
 		return View(sellPlaceDetails);
 	}
 
@@ -83,7 +86,7 @@ public class SellPlacesController : Controller
 	{
 		var sellPlaceDetails = await _sellPlacesService.Get(id);
 
-		if (sellPlaceDetails == null)
+		if (sellPlaceDetails is null)
 			return View("NotFound");
 
 		await _sellPlacesService.Delete(id);

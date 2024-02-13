@@ -2,6 +2,9 @@
 
 namespace CheapCars.Data.Interfaces;
 
+/// <summary>
+/// Sell places service interface
+/// </summary>
 public interface ISellPlacesService
 {
     Task Add(SellPlace sellPlace);

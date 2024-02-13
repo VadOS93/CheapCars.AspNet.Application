@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CheapCars.Controllers;
 
+/// <summary>
+/// Operations with special abilities
+/// </summary>
 public class SpecialAbilitiesController : Controller
 {
 	private readonly ISpecialAbilitiesService _specialAbilitiesService;
@@ -30,9 +33,8 @@ public class SpecialAbilitiesController : Controller
 	{
 		var errors = ModelState.Values.SelectMany(v => v.Errors);
 		if (!ModelState.IsValid)
-		{
 			return View(specialAbility);
-		}
+
 		await _specialAbilitiesService.Add(specialAbility);
 		return RedirectToAction(nameof(Index));
 	}
@@ -42,7 +44,7 @@ public class SpecialAbilitiesController : Controller
 	{
 		var specialAbilityDetails = await _specialAbilitiesService.Get(id);
 
-		if (specialAbilityDetails == null)
+		if (specialAbilityDetails is null)
 			return View("NotFound");
 
 		return View(specialAbilityDetails);
@@ -52,8 +54,9 @@ public class SpecialAbilitiesController : Controller
 	{
 		var specialAbilityDetails = await _specialAbilitiesService.Get(id);
 
-		if (specialAbilityDetails == null)
+		if (specialAbilityDetails is null)
 			return View("NotFound");
+
 		return View(specialAbilityDetails);
 	}
 
@@ -61,10 +64,10 @@ public class SpecialAbilitiesController : Controller
 	public async Task<IActionResult> Edit(int id, SpecialAbility specialAbility)
 	{
 		var errors = ModelState.Values.SelectMany(v => v.Errors);
+
 		if (!ModelState.IsValid)
-		{
 			return View(specialAbility);
-		}
+
 		await _specialAbilitiesService.Update(id, specialAbility);
 		return RedirectToAction(nameof(Index));
 	}
@@ -73,8 +76,9 @@ public class SpecialAbilitiesController : Controller
 	{
 		var specialAbilityDetails = await _specialAbilitiesService.Get(id);
 
-		if (specialAbilityDetails == null)
+		if (specialAbilityDetails is null)
 			return View("NotFound");
+
 		return View(specialAbilityDetails);
 	}
 
@@ -83,7 +87,7 @@ public class SpecialAbilitiesController : Controller
 	{
 		var specialAbilityDetails = await _specialAbilitiesService.Get(id);
 
-		if (specialAbilityDetails == null)
+		if (specialAbilityDetails is null)
 			return View("NotFound");
 
 		await _specialAbilitiesService.Delete(id);

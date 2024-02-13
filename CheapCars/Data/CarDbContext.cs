@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CheapCars.Data;
 
+/// <summary>
+/// Car Db Context
+/// </summary>
 public class CarDbContext : IdentityDbContext<ApplicationUser>
 {
 	public DbSet<Award> Awards { get; set; }
@@ -32,8 +35,15 @@ public class CarDbContext : IdentityDbContext<ApplicationUser>
 			x.AwardId
 		});
 
-		modelBuilder.Entity<Car_Award>().HasOne(x => x.Award).WithMany(y => y.Cars_Awards).HasForeignKey(x => x.AwardId);
-		modelBuilder.Entity<Car_Award>().HasOne(x => x.Car).WithMany(y => y.Cars_Awards).HasForeignKey(x => x.CarId);
+		modelBuilder.Entity<Car_Award>()
+			.HasOne(x => x.Award)
+			.WithMany(y => y.Cars_Awards)
+			.HasForeignKey(x => x.AwardId);
+
+		modelBuilder.Entity<Car_Award>()
+			.HasOne(x => x.Car)
+			.WithMany(y => y.Cars_Awards)
+			.HasForeignKey(x => x.CarId);
 
 		modelBuilder.Entity<Car_SpecialAbility>().HasKey(x => new
 		{
@@ -41,9 +51,15 @@ public class CarDbContext : IdentityDbContext<ApplicationUser>
 			x.SpecialAbilityId
 		});
 
-		modelBuilder.Entity<Car_SpecialAbility>().HasOne(x => x.SpecialAbility).WithMany(y => y.Cars_SpecialAbilities).HasForeignKey(x => x.SpecialAbilityId);
-		modelBuilder.Entity<Car_SpecialAbility>().HasOne(x => x.Car).WithMany(y => y.Cars_SpecialAbilities).HasForeignKey(x => x.CarId);
+		modelBuilder.Entity<Car_SpecialAbility>()
+			.HasOne(x => x.SpecialAbility)
+			.WithMany(y => y.Cars_SpecialAbilities)
+			.HasForeignKey(x => x.SpecialAbilityId);
 
+		modelBuilder.Entity<Car_SpecialAbility>()
+			.HasOne(x => x.Car)
+			.WithMany(y => y.Cars_SpecialAbilities)
+			.HasForeignKey(x => x.CarId);
 
 		base.OnModelCreating(modelBuilder);
 	}

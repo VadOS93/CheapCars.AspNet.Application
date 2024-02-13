@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CheapCars.Controllers;
 
+/// <summary>
+/// Operations with awards
+/// </summary>
 public class AwardsController : Controller
 {
 	private readonly IAwardsService _awardService;
@@ -30,9 +33,8 @@ public class AwardsController : Controller
 	{
 		var errors = ModelState.Values.SelectMany(v => v.Errors);
 		if (!ModelState.IsValid)
-		{
 			return View(award);
-		}
+
 		await _awardService.Add(award);
 		return RedirectToAction(nameof(Index));
 	}
@@ -42,7 +44,7 @@ public class AwardsController : Controller
 	{
 		var awardDetails = await _awardService.Get(id);
 
-		if (awardDetails == null)
+		if (awardDetails is null)
 			return View("NotFound");
 
 		return View(awardDetails);
@@ -62,9 +64,8 @@ public class AwardsController : Controller
 	{
 		var errors = ModelState.Values.SelectMany(v => v.Errors);
 		if (!ModelState.IsValid)
-		{
 			return View(award);
-		}
+
 		await _awardService.Update(id, award);
 		return RedirectToAction(nameof(Index));
 	}
@@ -73,8 +74,9 @@ public class AwardsController : Controller
 	{
 		var awardDetails = await _awardService.Get(id);
 
-		if (awardDetails == null)
+		if (awardDetails is null)
 			return View("NotFound");
+
 		return View(awardDetails);
 	}
 
@@ -83,7 +85,7 @@ public class AwardsController : Controller
 	{
 		var awardDetails = await _awardService.Get(id);
 
-		if (awardDetails == null)
+		if (awardDetails is null)
 			return View("NotFound");
 
 		await _awardService.Delete(id);

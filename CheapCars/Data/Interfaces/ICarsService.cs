@@ -3,6 +3,9 @@ using CheapCars.Models;
 
 namespace CheapCars.Data.Interfaces;
 
+/// <summary>
+/// Cars service interface
+/// </summary>
 public interface ICarsService
 {
     Task<Car> GetCarById(int id);

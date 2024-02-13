@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CheapCars.Models;
 
+/// <summary>
+/// Award model
+/// </summary>
 public class Award
 {
 	[Key]

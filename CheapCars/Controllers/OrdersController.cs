@@ -11,21 +11,26 @@ using System.Security.Claims;
 
 namespace CheapCars.Controllers;
 
+/// <summary>
+/// Operations with orders
+/// </summary>
 [Authorize]
 public class OrdersController : Controller
 {
 	private readonly ICarsService _carsService;
 	private readonly Busket _busket;
 	private readonly IOrdersService _ordersService;
+	private readonly IConfiguration _configuration;
 
-	public OrdersController(ICarsService carsService, Busket busket, IOrdersService ordersService)
-	{
-		_carsService = carsService;
-		_busket = busket;
-		_ordersService = ordersService;
-	}
+    public OrdersController(ICarsService carsService, Busket busket, IOrdersService ordersService, IConfiguration configuration)
+    {
+        _carsService = carsService;
+        _busket = busket;
+        _ordersService = ordersService;
+        _configuration = configuration;
+    }
 
-	public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index()
 	{
 		string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 		string userRole = User.FindFirstValue(ClaimTypes.Role);
@@ -52,10 +57,9 @@ public class OrdersController : Controller
 	{
 		var item = await _carsService.GetCarById(id);
 
-		if (item != null)
-		{
+		if (item is not null)
 			_busket.AddItemToBusket(item);
-		}
+		
 		return RedirectToAction(nameof(Busket));
 	}
 
@@ -63,10 +67,9 @@ public class OrdersController : Controller
 	{
 		var item = await _carsService.GetCarById(id);
 
-		if (item != null)
-		{
+		if (item is not null)
 			_busket.RemoveItemFromBusket(item);
-		}
+
 		return RedirectToAction(nameof(Busket));
 	}
 
@@ -88,7 +91,7 @@ public class OrdersController : Controller
 		string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 		string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
 
-		var domain = "https://localhost:7137/";
+		var domain = _configuration.GetConnectionString("BaseDomain");
 
 		var options = new SessionCreateOptions
 		{

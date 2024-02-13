@@ -2,6 +2,9 @@
 
 namespace CheapCars.Data.Interfaces;
 
+/// <summary>
+/// Award Service interface
+/// </summary>
 public interface IAwardsService
 {
     Task<IEnumerable<Award>> GetAll();

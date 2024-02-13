@@ -2,6 +2,9 @@
 
 namespace CheapCars.Models;
 
+/// <summary>
+/// Sell place model
+/// </summary>
 public class SellPlace
 {
 	[Key]

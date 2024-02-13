@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CheapCars.Controllers;
 
+/// <summary>
+/// Operations with cars
+/// </summary>
 [Authorize(Roles = UserRoles.Admin)]
 public class CarsController : Controller
 {
@@ -33,7 +36,6 @@ public class CarsController : Controller
 		};
 
 		return View("Available", carsView);
-
 	}
 
 	[AllowAnonymous]
@@ -51,7 +53,6 @@ public class CarsController : Controller
 		};
 
 		return View("SortByAsc", carsView);
-
 	}
 
 	[AllowAnonymous]
@@ -108,8 +109,8 @@ public class CarsController : Controller
 			Cars = allCars.Where(x => x.CarType != Data.Enums.CarType.Bus).OrderBy(x => x.Name),
 			CurrentPage = page
 		};
-		return View(carsView);
 
+		return View(carsView);
 	}
 
 	[AllowAnonymous]

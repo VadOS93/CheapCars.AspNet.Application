@@ -246,7 +246,6 @@ public class CarDbInitializer
 	{
 		using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
 		{
-
 			//Roles
 			var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
@@ -272,7 +271,6 @@ public class CarDbInitializer
 				await userManager.CreateAsync(newAdminUser, "Coding12345!!!");
 				await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
 			}
-
 
 			string appUserEmail = "user@cheapcars.com";
 

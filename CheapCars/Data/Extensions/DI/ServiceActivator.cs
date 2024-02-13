@@ -3,6 +3,9 @@ using CheapCars.Data.Services;
 
 namespace CheapCars.Data.Extensions.DI;
 
+/// <summary>
+/// Service Activator
+/// </summary>
 public static class ServiceActivator
 {
 	public static IServiceCollection ActivateBasicServices(this IServiceCollection services)

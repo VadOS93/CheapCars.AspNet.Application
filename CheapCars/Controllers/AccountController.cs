@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CheapCars.Controllers;
 
+/// <summary>
+/// Operations with user account
+/// </summary>
 public class AccountController : Controller
 {
 	private readonly UserManager<ApplicationUser> _userManager;
@@ -22,13 +25,11 @@ public class AccountController : Controller
 		_context = context;
 	}
 
-
 	public async Task<IActionResult> Users()
 	{
 		var users = await _context.Users.ToListAsync();
 		return View(users);
 	}
-
 
 	public IActionResult Login() => View(new LoginVM());
 
@@ -45,9 +46,7 @@ public class AccountController : Controller
 			{
 				var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
 				if (result.Succeeded)
-				{
 					return RedirectToAction("Index", "Cars");
-				}
 			}
 			TempData["Error"] = "Wrong credentials. Please, try again!";
 			return View(loginVM);
@@ -57,7 +56,6 @@ public class AccountController : Controller
 		return View(loginVM);
 	}
 
-
 	public IActionResult Register() => View(new RegisterVM());
 
 	[HttpPost]
@@ -66,7 +64,7 @@ public class AccountController : Controller
 		if (!ModelState.IsValid) return View(registerVM);
 
 		var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
-		if (user != null)
+		if (user is not null)
 		{
 			TempData["Error"] = "This email address is already in use";
 			return View(registerVM);

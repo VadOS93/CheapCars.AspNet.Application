@@ -2,6 +2,9 @@
 
 namespace CheapCars.Data.Interfaces;
 
+/// <summary>
+/// Special abilities service interface
+/// </summary>
 public interface ISpecialAbilitiesService
 {
     Task Add(SpecialAbility specialAbility);

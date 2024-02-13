@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CheapCars.Models;
 
+/// <summary>
+/// Special Ability model
+/// </summary>
 public class SpecialAbility
 {
 	[Key]

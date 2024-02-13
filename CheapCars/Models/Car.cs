@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CheapCars.Models;
 
+/// <summary>
+/// Car model
+/// </summary>
 public class Car
 {
 	[Key]
