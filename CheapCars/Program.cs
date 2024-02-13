@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using Stripe;
+
 namespace CheapCars;
 
 public class Program
@@ -23,7 +25,6 @@ public class Program
 		{
 			options.UseSqlServer(configuration.GetConnectionString("Default"));
 		});
-
 
 		builder.Services.ActivateBasicServices();
 
@@ -53,6 +54,8 @@ public class Program
 		app.UseRouting();
 		app.UseSession();
 
+		StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
 		app.UseAuthentication();
 		app.UseAuthorization();
 
@@ -65,6 +68,5 @@ public class Program
 		CarDbInitializer.SeedUsersAndRolesAsync(app).Wait();
 
 		app.Run();
-
 	}
 }

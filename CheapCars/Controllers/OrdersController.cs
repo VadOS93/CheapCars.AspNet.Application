@@ -5,6 +5,8 @@ using CheapCars.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using Stripe.Checkout;
+
 using System.Security.Claims;
 
 namespace CheapCars.Controllers;
@@ -78,5 +80,49 @@ public class OrdersController : Controller
 		await _busket.ClearBusketAsync();
 
 		return View("OrderCompleted");
+	}
+
+	public async Task<IActionResult> StripeCheckout()
+	{
+		var items = _busket.GetBusketItems();
+		string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+		string userEmailAddress = User.FindFirstValue(ClaimTypes.Email);
+
+		var domain = "https://localhost:7137/";
+
+		var options = new SessionCreateOptions
+		{
+			SuccessUrl = domain + "Orders/CompleteOrder",
+			CancelUrl = domain + "Orders/Busket",
+			LineItems = new List<SessionLineItemOptions>(),
+			Mode = "payment",
+			CustomerEmail = userEmailAddress,
+		};
+
+		foreach (var item in items)
+		{
+			var busketItem = new SessionLineItemOptions
+			{
+				PriceData = new SessionLineItemPriceDataOptions
+				{
+					UnitAmount = (long)item.Car.Price,
+					Currency = "usd",
+					ProductData = new SessionLineItemPriceDataProductDataOptions
+					{
+						Name = item.Car.Name
+					}
+				},
+				Quantity = item.Amount,
+			};
+
+			options.LineItems.Add(busketItem);
+		}
+
+		var service = new SessionService();
+		Session session = service.Create(options);
+
+		Response.Headers.Add("Location", session.Url);
+
+		return new StatusCodeResult(303);
 	}
 }
